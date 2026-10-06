@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Students</title>
+
+</head>
+
+<body>
+
+    <h1>Student Management</h1>
+
+    <% if (user) { %>
+
+        <p>Welcome, <strong><%= user.name %></strong>!</p>
+
+    <% } else { %>
+
+        <p>Welcome, Guest!</p>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Student List</h2>
+
+    <% if (students.length === 0) { %>
+
+        <p>No students found.</p>
+
+    <% } else { %>
+
+        <table border="1" cellpadding="10">
+
+            <tr>
+
+                <th>Name</th>
+
+                <th>Course</th>
+
+                <th>Age</th>
+
+                <th>City</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+            <% students.forEach(student => { %>
+
+                <tr>
+
+                    <td><%= student.name %></td>
+
+                    <td><%= student.course %></td>
+
+                    <td><%= student.age %></td>
+
+                    <td><%= student.city %></td>
+
+                    <td>
+
+                        <!-- UPDATE -->
+
+                        <form action="/students/update/<%= student._id %>" method="POST">
+
+                            <input
+                                type="text"
+                                name="name"
+                                value="<%= student.name %>"
+                                required
+                            >
+
+                            <input
+                                type="text"
+                                name="course"
+                                value="<%= student.course %>"
+                                required
+                            >
+
+                            <input
+                                type="number"
+                                name="age"
+                                value="<%= student.age %>"
+                                required
+                            >
+
+                            <input
+                                type="text"
+                                name="city"
+                                value="<%= student.city %>"
+                                required
+                            >
+
+                            <button type="submit">Update</button>
+
+                        </form>
+
+                        <br>
+
+                        <!-- DELETE -->
+
+                        <form
+                            action="/students/delete/<%= student._id %>"
+                            method="POST"
+                        >
+
+                            <button type="submit">Delete</button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+            <% }) %>
+
+        </table>
+
+    <% } %>
+
+    <hr>
+
+    <h2>Add Student</h2>
+
+    <form action="/students" method="POST">
+
+        <label>Name:</label>
+
+        <input type="text" name="name" required>
+
+        <br><br>
+
+        <label>Course:</label>
+
+        <input type="text" name="course" required>
+
+        <br><br>
+
+        <label>Age:</label>
+
+        <input type="number" name="age" required>
+
+        <br><br>
+
+        <label>City:</label>
+
+        <input type="text" name="city" required>
+
+        <br><br>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <br>
+
+    <!-- LOGOUT -->
+
+    <a href="/logout">Logout</a>
+
+    <br><br>
+
+    <a href="/">Back to Home</a>
+
+</body>
+
+</html>
